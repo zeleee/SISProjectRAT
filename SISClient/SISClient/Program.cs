@@ -23,6 +23,7 @@ namespace SISClient
         {
             ConnectToServer();
             RequestLoop();
+
         }
 
         private static void ConnectToServer()
