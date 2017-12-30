@@ -41,6 +41,8 @@
             this.listView1 = new System.Windows.Forms.ListView();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -56,18 +58,20 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(657, 480);
+            this.button2.Location = new System.Drawing.Point(657, 331);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 2;
             this.button2.Text = "Send";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(13, 482);
+            this.textBox1.Location = new System.Drawing.Point(18, 331);
+            this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(638, 20);
+            this.textBox1.Size = new System.Drawing.Size(633, 171);
             this.textBox1.TabIndex = 3;
             // 
             // label1
@@ -97,16 +101,19 @@
             // ComputerName
             // 
             this.ComputerName.Text = "Computer Name";
+            this.ComputerName.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.ComputerName.Width = 173;
             // 
             // lanIP
             // 
             this.lanIP.Text = "LAN IP";
+            this.lanIP.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.lanIP.Width = 218;
             // 
             // av
             // 
             this.av.Text = "AV";
+            this.av.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.av.Width = 253;
             // 
             // listView1
@@ -124,7 +131,7 @@
             this.listView1.Location = new System.Drawing.Point(18, 89);
             this.listView1.Name = "listView1";
             this.listView1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.listView1.Size = new System.Drawing.Size(714, 372);
+            this.listView1.Size = new System.Drawing.Size(714, 226);
             this.listView1.TabIndex = 6;
             this.listView1.TabStop = false;
             this.listView1.TileSize = new System.Drawing.Size(1, 10);
@@ -141,15 +148,35 @@
             // refreshToolStripMenuItem
             // 
             this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
-            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
             this.refreshToolStripMenuItem.Text = "Refresh";
             this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(361, 43);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(74, 13);
+            this.label2.TabIndex = 7;
+            this.label2.Text = "Connected to:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(441, 43);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(27, 13);
+            this.label3.TabIndex = 8;
+            this.label3.Text = "N/A";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(989, 514);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.label1);
@@ -177,6 +204,8 @@
         private System.Windows.Forms.ListView listView1;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
     }
 }
 

