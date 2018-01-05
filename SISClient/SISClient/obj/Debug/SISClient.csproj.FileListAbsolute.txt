@@ -8,3 +8,7 @@ C:\Users\Kreso\Desktop\OS2Projekt\SISClient\SISClient\bin\Debug\System.Managemen
 C:\Users\Kreso\Documents\SISProjectRAT\SISClient\SISClient\bin\Debug\SISClient.exe.config
 C:\Users\Kreso\Documents\SISProjectRAT\SISClient\SISClient\obj\Debug\SISClient.exe
 C:\Users\Kreso\Documents\SISProjectRAT\SISClient\SISClient\obj\Debug\SISClient.pdb
+C:\Users\Kreso\Documents\SISProjectRAT\SISClient\SISClient\bin\Debug\SISClient.exe
+C:\Users\Kreso\Documents\SISProjectRAT\SISClient\SISClient\bin\Debug\SISClient.pdb
+C:\Users\Kreso\Documents\SISProjectRAT\SISClient\SISClient\bin\Debug\System.Management.Automation.dll
+C:\Users\Kreso\Documents\SISProjectRAT\SISClient\SISClient\obj\Debug\SISClient.csprojResolveAssemblyReference.cache

