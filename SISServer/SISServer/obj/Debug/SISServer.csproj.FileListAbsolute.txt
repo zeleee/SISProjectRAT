@@ -16,3 +16,4 @@ C:\Users\Kreso\Documents\SISProjectRAT\SISServer\SISServer\obj\Debug\SISServer.c
 C:\Users\Kreso\Documents\SISProjectRAT\SISServer\SISServer\obj\Debug\SISServer.Form1.resources
 C:\Users\Kreso\Documents\SISProjectRAT\SISServer\SISServer\obj\Debug\SISServer.Properties.Resources.resources
 C:\Users\Kreso\Documents\SISProjectRAT\SISServer\SISServer\obj\Debug\SISServer.csproj.GenerateResource.Cache
+C:\Users\Kreso\Documents\SISProjectRAT\SISServer\SISServer\obj\Debug\SISServer.csproj.CoreCompileInputs.cache

@@ -12,3 +12,4 @@ C:\Users\Kreso\Documents\SISProjectRAT\SISClient\SISClient\bin\Debug\SISClient.e
 C:\Users\Kreso\Documents\SISProjectRAT\SISClient\SISClient\bin\Debug\SISClient.pdb
 C:\Users\Kreso\Documents\SISProjectRAT\SISClient\SISClient\bin\Debug\System.Management.Automation.dll
 C:\Users\Kreso\Documents\SISProjectRAT\SISClient\SISClient\obj\Debug\SISClient.csprojResolveAssemblyReference.cache
+C:\Users\Kreso\Documents\SISProjectRAT\SISClient\SISClient\obj\Debug\SISClient.csproj.CoreCompileInputs.cache

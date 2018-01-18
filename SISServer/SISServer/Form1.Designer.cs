@@ -121,19 +121,19 @@
             // 
             this.ComputerName.Text = "Computer Name";
             this.ComputerName.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.ComputerName.Width = 173;
+            this.ComputerName.Width = 149;
             // 
             // lanIP
             // 
             this.lanIP.Text = "LAN IP";
             this.lanIP.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.lanIP.Width = 218;
+            this.lanIP.Width = 188;
             // 
             // av
             // 
             this.av.Text = "AV";
             this.av.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.av.Width = 253;
+            this.av.Width = 203;
             // 
             // listView1
             // 
@@ -147,7 +147,7 @@
             this.listView1.ContextMenuStrip = this.contextMenuStrip1;
             this.listView1.FullRowSelect = true;
             this.listView1.GridLines = true;
-            this.listView1.Location = new System.Drawing.Point(18, 89);
+            this.listView1.Location = new System.Drawing.Point(12, 80);
             this.listView1.Name = "listView1";
             this.listView1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.listView1.Size = new System.Drawing.Size(606, 226);
